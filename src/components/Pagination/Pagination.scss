@@ -1,0 +1,16 @@
+.pagination {
+  text-align: left;
+  li {
+    border: 1px solid;
+    display: inline-block;
+    padding: 5px 13px;
+    border-radius: 59px;
+    margin-right: 5px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .active {
+    background-color: #fe5f1e;
+    color: white;
+  }
+}
