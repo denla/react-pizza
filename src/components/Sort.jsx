@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import filterSlice from '../redux/slices/filterSlice';
 import { setSortType } from '../redux/slices/filterSlice';
 
+export const list = [
+  { name: 'популярности', sortProperty: 'rating' },
+  { name: 'цене', sortProperty: 'price' },
+  { name: 'алфавиту', sortProperty: 'title' },
+];
+
 export const Sort = () => {
-  const list = [
-    { name: 'популярности', sortProperty: 'rating' },
-    { name: 'цене', sortProperty: 'price' },
-    { name: 'алфавиту', sortProperty: 'title' },
-  ];
   const [open, setOpen] = React.useState(false);
 
   const sort = useSelector((state) => state.filterSlice.sort);
