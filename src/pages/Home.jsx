@@ -91,6 +91,7 @@ const Home = ({ searchValue }) => {
           : pizzas.map((item) => (
               <Card
                 key={item.id}
+                id={item.id}
                 title={item.title}
                 price={item.price}
                 coverImg={item.imageUrl}

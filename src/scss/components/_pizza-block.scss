@@ -1,5 +1,12 @@
 @import '../variables.scss';
 
+.pizza-block:hover img {
+  transform: scale(1.02);
+}
+.pizza-block img {
+  transition: 0.15s ease;
+}
+
 .pizza-block {
   width: 280px;
   text-align: center;
