@@ -66,7 +66,7 @@ export const Card = ({ id, title, price, coverImg, sizes, types }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>{countTest ? countTest.count : '0'}</i>
+          {countTest ? <i>{countTest.count}</i> : ''}
         </div>
       </div>
     </div>
