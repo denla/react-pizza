@@ -91,7 +91,11 @@ const Home = ({ searchValue }) => {
         {status == 'error' ? (
           <FetchError />
         ) : status == 'loading' ? (
-          [...new Array(4)].map((item, i) => <Skeleton key={i} />)
+          <div className="content__items">
+            {[...new Array(4)].map((item, i) => (
+              <Skeleton key={i} />
+            ))}
+          </div>
         ) : (
           <div className="content__items">
             {pizzas.map((item) => (
