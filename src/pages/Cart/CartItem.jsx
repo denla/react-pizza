@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, minusItem, plusItem } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 const CartItem = ({ id, title, price, cover, type, size, count }) => {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ const CartItem = ({ id, title, price, cover, type, size, count }) => {
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" alt="Pizza" src={cover} />
+        <Link to={`/pizza/${id}`}>
+          <img className="pizza-block__image" alt="Pizza" src={cover} />
+        </Link>
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>

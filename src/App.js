@@ -10,6 +10,7 @@ import Cart from './pages/Cart';
 import { Routes, Route } from 'react-router-dom';
 
 import { store } from './redux/store';
+import FullPizza from './pages/FullPizza';
 
 export const searchContext = React.createContext();
 
@@ -26,6 +27,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home searchValue={searchValue} />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/pizza/:id" element={<FullPizza />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>

@@ -39,25 +39,35 @@ const Search = () => {
   const { searchValue, setSearchValue } = React.useContext(searchContext);
   return (
     <>
-      <input
-        ref={inputRef}
-        placeholder="Поиск пиццы..."
-        className="root"
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-          updateSearchValue(value);
-        }}
-      />
-      <button
-        onClick={() => {
-          setValue('');
-          setSearchValue('');
-          inputRef.current.focus();
-        }}
-      >
-        Clear
-      </button>
+      <div className="root">
+        <input
+          ref={inputRef}
+          placeholder="Поиск пиццы..."
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            updateSearchValue(value);
+          }}
+        />
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="#d0d0d0"
+          onClick={() => {
+            setValue('');
+            setSearchValue('');
+            inputRef.current.focus();
+          }}
+        >
+          <path d="M11 0.7H13V23.3H11z" transform="rotate(-45.001 12 12)"></path>
+          <path d="M0.7 11H23.3V13H0.7z" transform="rotate(-45.001 12 12)"></path>
+        </svg>
+      </div>
     </>
   );
 };

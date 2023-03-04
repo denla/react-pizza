@@ -23,6 +23,12 @@ body {
     margin: 35px 0;
   }
 
+  &__error {
+    margin: 60px auto;
+    width: 580px;
+    text-align: center;
+  }
+
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -327,5 +333,17 @@ body {
       font-weight: 600;
       font-size: 18px;
     }
+  }
+}
+
+.pizza-info__content {
+  column-gap: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 50px;
+
+  img {
+    width: 350px;
   }
 }

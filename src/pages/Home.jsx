@@ -13,11 +13,14 @@ import { Card } from '../components/Card';
 import Pagination from '../components/Pagination';
 import Skeleton from '../components/Card/Skeleton';
 
-import axios from 'axios';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import FetchError from './Cart/FetchError';
 
 const Home = ({ searchValue }) => {
-  const [pizzas, setPizzas] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  //const [pizzas, setPizzas] = React.useState([]);
+  const pizzas = useSelector((state) => state.pizzaSlice.items);
+  const status = useSelector((state) => state.pizzaSlice.status);
+  //const [isLoading, setIsLoading] = React.useState(true);
 
   //const [categoryId, setCategoryId] = React.useState(0);
   //const [sortType, setSortType] = React.useState({ name: 'популярности', sortProperty: 'rating' });
@@ -52,19 +55,18 @@ const Home = ({ searchValue }) => {
     }
   }, []);
 
-  React.useEffect(() => {
-    setIsLoading(true);
+  const getPizzas = async () => {
     console.log(sortType.sortProperty);
-    axios
-      .get(
-        `https://63c14860376b9b2e6477bf95.mockapi.io/items?limit=3&page=${selectedPage}${
-          categoryId > 0 ? `&category=${categoryId}` : ''
-        }&sortBy=${sortType.sortProperty}&order=desc&filter=${searchValue}`,
-      )
-      .then((res) => {
-        setPizzas(res.data);
-        setIsLoading(false);
-      });
+    try {
+      console.log('fetch ');
+      dispatch(fetchPizzas({ selectedPage, categoryId, sortType, searchValue }));
+    } catch (error) {
+      console.log('err ' + error);
+    }
+  };
+
+  React.useEffect(() => {
+    getPizzas();
   }, [categoryId, sortType, searchValue, selectedPage]);
 
   React.useEffect(() => {
@@ -79,16 +81,20 @@ const Home = ({ searchValue }) => {
   }, [categoryId, sortType, searchValue, selectedPage]);
   return (
     <>
-      <div className="content__top">
-        <Categories value={categoryId} onClickCategory={onClickCategory} />
-        {/* <Sort value={sortType} setSortType={setSortType} /> */}
-        <Sort />
-      </div>
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(4)].map((item, i) => <Skeleton key={i} />)
-          : pizzas.map((item) => (
+      <>
+        <div className="content__top">
+          <Categories value={categoryId} onClickCategory={onClickCategory} />
+          {/* <Sort value={sortType} setSortType={setSortType} /> */}
+          <Sort />
+        </div>
+        <h2 className="content__title">Все пиццы</h2>
+        {status == 'error' ? (
+          <FetchError />
+        ) : status == 'loading' ? (
+          [...new Array(4)].map((item, i) => <Skeleton key={i} />)
+        ) : (
+          <div className="content__items">
+            {pizzas.map((item) => (
               <Card
                 key={item.id}
                 id={item.id}
@@ -99,8 +105,10 @@ const Home = ({ searchValue }) => {
                 types={item.types}
               />
             ))}
-      </div>
-      <Pagination selected={selectedPage} setSelected={onClickPage} />
+          </div>
+        )}
+        <Pagination selected={selectedPage} setSelected={onClickPage} />
+      </>
     </>
   );
 };

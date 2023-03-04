@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 export const Card = ({ id, title, price, coverImg, sizes, types }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,11 @@ export const Card = ({ id, title, price, coverImg, sizes, types }) => {
 
   const cartItems = useSelector((state) => state.cartSlice.items);
 
-  const countTest = cartItems.find((obj) => obj.id === id);
+  //const countTest = cartItems.find((obj) => obj.id === id);
+  const filteredItems = cartItems.filter((obj) => obj.id === id);
+  //filteredItems.map((obj) => console.log(obj.count));
+  //state.items.reduce((sum, obj) => sum + obj.price * obj.count, 0);
+  const countTest = filteredItems.reduce((sum, obj) => sum + obj.count, 0);
 
   const onClickAdd = () => {
     setCount(count + 1);
@@ -24,7 +29,9 @@ export const Card = ({ id, title, price, coverImg, sizes, types }) => {
 
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={coverImg} alt="Pizza" />
+      <Link to={`pizza/${id}`}>
+        <img className="pizza-block__image" src={coverImg} alt="Pizza" />
+      </Link>
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
@@ -66,7 +73,7 @@ export const Card = ({ id, title, price, coverImg, sizes, types }) => {
             />
           </svg>
           <span>Добавить</span>
-          {countTest ? <i>{countTest.count}</i> : ''}
+          {countTest ? <i>{countTest}</i> : ''}
         </div>
       </div>
     </div>
